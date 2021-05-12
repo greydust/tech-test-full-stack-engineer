@@ -2,30 +2,35 @@ version: '3'
 
 services:
   ui:
+    build:
+      context: ./ui
     entrypoint: ["npm", "start"]
     environment:
       NODE_ENV: development
-    image: node:10.15-alpine
     ports:
       - "3000:3000"
     volumes:
       - ./ui:/opt/ui
+      - /opt/ui/node_modules
     working_dir: /opt/ui
 
   server:
+    build:
+      context: ./server
     entrypoint: ["npm", "start"]
     environment:
       NODE_ENV: development
-    image: node:10.15-alpine
     links:
       - database:database
     ports:
       - "8080:8080"
     volumes:
       - ./server:/opt/server
+      - /opt/server/node_modules
     working_dir: /opt/server
   
   database:
+    platform: linux/x86_64
     image: mysql:5.6
     environment:
       MYSQL_ROOT_PASSWORD: hipages
