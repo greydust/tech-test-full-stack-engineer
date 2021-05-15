@@ -12,13 +12,25 @@ I chose the second approach since it aligns with the idea of "container" and kee
 
 # Frontend
 
+Since I only have minimal knowledge about the frontend, I decided that it would be better to keep the boilerplate and learn how to use it.
+
+## **Framework**
+
+I kept it as it is.
+
+## **Design choices**
+
+I first followed the tutorial, kept all things in the same file, and made it works.  
+
 # Backend
 
-## Framework
+## **Framework**
 
-Express was the only one that I had tried before and it seems to fit the requirement of the project, so I kept express.
+Express was the only one that I had tried before and it seems to fit the requirement of the project, so I kept it.
 
-## API
+## **Design choices**
+
+### API
 
 By looking at the description of the task, it has four operations:
   1. List jobs in the `Invited` tab.
@@ -27,19 +39,19 @@ By looking at the description of the task, it has four operations:
   4. Decline a job.
 
 Following the philosophy of REST API, we have only one resource: job. So the four operations translate to the following:
-  1. GET /job?status=new
-  2. GET /job?status=accepted
-  3. POST /job/:id
-      - POST body: { "operation": "accept" }
-  4. POST /job/:id
-      - POST body: { "operation": "decline" }
+  1. > GET /job?status=new
+  2. > GET /job?status=accepted
+  3. > POST /job/:id
+     > - POST body: { "operation": "accept" }
+  4. > POST /job/:id
+     > - POST body: { "operation": "decline" }
 
 Corresponding functions are declared with names instead of lambda functions to do unit tests properly.
 
-## Linting
+## **Linting**
 
-Migrate to ESLint, which should be officially supported and chose a config that I am more familiar with.
+Migrated to ESLint, which should be officially supported, and chose a config that I am more familiar with.
 
-## Testing
+## **Testing**
 
 mocha(Framework) + chai(Assertion) + rewire(Exposure). Just something I am familiar with that would get the job done.
