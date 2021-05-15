@@ -5,9 +5,13 @@ import { Common } from '../../../library/common';
 const router = express.Router();
 
 async function getJobsByStatus(request, response) {
-  const { status, limit = 20, offset = 10 } = request.query;
+  const { status, limit = 20, offset = 0 } = request.query;
+  const jobs = await Common.databaseJob.listJobs(status, limit, offset);
   return response.json({
-    jobs: await Common.databaseJob.listJobs(status, limit, offset),
+    jobs,
+    limit,
+    offset,
+    nextPage: jobs.length === limit,
   });
 }
 

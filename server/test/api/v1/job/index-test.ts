@@ -19,7 +19,7 @@ describe('v1/job/index tests', () => {
       );
       const queryStrings: Array<string> = mockSqlPool.getQueryStrings();
       expect(queryStrings.length).to.equal(1);
-      expect(result).to.deep.equal({ jobs: [] });
+      expect(result).to.deep.include({ jobs: [], limit: 100, offset: 10, nextPage: false });
     });
 
     it('Request without limit', async () => {
@@ -30,7 +30,7 @@ describe('v1/job/index tests', () => {
       );
       const queryStrings: Array<string> = mockSqlPool.getQueryStrings();
       expect(queryStrings.length).to.equal(1);
-      expect(result).to.deep.equal({ jobs: [] });
+      expect(result).to.deep.include({ jobs: [], offset: 10, nextPage: false });
     });
 
     it('Request without offset', async () => {
@@ -41,7 +41,7 @@ describe('v1/job/index tests', () => {
       );
       const queryStrings: Array<string> = mockSqlPool.getQueryStrings();
       expect(queryStrings.length).to.equal(1);
-      expect(result).to.deep.equal({ jobs: [] });
+      expect(result).to.deep.include({ jobs: [], limit: 100, nextPage: false });
     });
 
     it('Request without limit and offset', async () => {
@@ -52,7 +52,7 @@ describe('v1/job/index tests', () => {
       );
       const queryStrings: Array<string> = mockSqlPool.getQueryStrings();
       expect(queryStrings.length).to.equal(1);
-      expect(result).to.deep.equal({ jobs: [] });
+      expect(result).to.deep.include({ jobs: [], nextPage: false });
     });
   });
 

@@ -15,12 +15,12 @@ export class ImplementationMysql implements ImplementationBase {
   }
 
   async acceptJob(id: string): Promise<void> {
-    const queryString = `UPDATE jobs SET status = 'accepted' WHERE id = ${id}`;
+    const queryString = `UPDATE jobs SET status = 'accepted' WHERE id = ${id} AND status = 'new'`;
     await this.#mysqlConnection.query(queryString);
   }
 
   async declineJob(id: string): Promise<void> {
-    const queryString = `UPDATE jobs SET status = 'declined' WHERE id = ${id}`;
+    const queryString = `UPDATE jobs SET status = 'declined' WHERE id = ${id} AND status = 'new'`;
     await this.#mysqlConnection.query(queryString);
   }
 }
