@@ -18,13 +18,13 @@ class ImplementationMysql implements ImplementationBase {
 
   async acceptJob(id: string): Promise<void> {
     const updateTime = moment().utc().format('YYYY-MM-DD hh:mm:ss');
-    const queryString = `UPDATE jobs SET status = 'accepted', update_at = '${updateTime}' WHERE id = ${id} AND status = 'new'`;
+    const queryString = `UPDATE jobs SET status = 'accepted', updated_at = '${updateTime}' WHERE id = ${id} AND status = 'new'`;
     await this.#mysqlConnection.query(queryString);
   }
 
   async declineJob(id: string): Promise<void> {
     const updateTime = moment().utc().format('YYYY-MM-DD hh:mm:ss');
-    const queryString = `UPDATE jobs SET status = 'declined', update_at = '${updateTime}' WHERE id = ${id} AND status = 'new'`;
+    const queryString = `UPDATE jobs SET status = 'declined', updated_at = '${updateTime}' WHERE id = ${id} AND status = 'new'`;
     await this.#mysqlConnection.query(queryString);
   }
 }
