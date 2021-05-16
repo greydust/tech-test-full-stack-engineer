@@ -1,5 +1,15 @@
-Your Solution Documentation
+hipages Full Stack Engineer Tech Challenge
 ===========================
+
+# How to run
+
+## Start
+
+`docker-compose rm -f && docker-compose build && docker-compose up -d`
+
+## Stop
+
+`docker-compose stop`
 
 # Docker
 
@@ -21,6 +31,7 @@ I kept it as it is.
 ## **Design choices**
 
 I first followed the tutorial, kept all things in the same file, and made it works.  
+Then I tried to separate it to components to make it more structural.  
 
 # Backend
 
@@ -55,3 +66,9 @@ Migrated to ESLint, which should be officially supported, and chose a config tha
 ## **Testing**
 
 mocha(Framework) + chai(Assertion) + rewire(Exposure). Just something I am familiar with that would get the job done.
+
+# To-do
+
+1. CSS definitions to make it more beautiful.
+2. Frontend tests.
+3. Backend end to end tests.
