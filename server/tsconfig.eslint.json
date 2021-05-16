@@ -2,6 +2,8 @@
   "extends": "./tsconfig.json",
   "include": [
     "babel.config.js",
-    "./src/**/*.ts"
+    "./src/**/*.ts",
+    "./test/**/*.ts",
+    ".eslintrc.js"
   ]
 }

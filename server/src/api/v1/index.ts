@@ -1,8 +1,8 @@
 import * as express from 'express';
-import * as job from './job';
+import jobRouter from './job';
 
 const router = express.Router();
 
-router.use('/job', job.router);
+router.use('/job', jobRouter);
 
-export { router };
+export default router;

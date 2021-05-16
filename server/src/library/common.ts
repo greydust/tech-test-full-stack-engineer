@@ -1,5 +1,7 @@
-import { DatabaseJob } from "./database/database-job";
+import DatabaseJob from './database/database-job';
 
-export class Common {
+class Common {
   static databaseJob: DatabaseJob = null;
 }
+
+export default Common;

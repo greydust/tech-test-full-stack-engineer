@@ -1,10 +1,11 @@
 import { DatabaseBase } from './database-base';
 
-export class DatabaseJob extends DatabaseBase {
+class DatabaseJob extends DatabaseBase {
   async listJobs(status: string, limit: number = 20, offset: number = 0): Promise<string[]> {
     if (this.implementation) {
       return this.implementation.listJobs(status, limit, offset);
     }
+    return [];
   }
 
   async acceptJob(id: string): Promise<void> {
@@ -19,3 +20,5 @@ export class DatabaseJob extends DatabaseBase {
     }
   }
 }
+
+export default DatabaseJob;

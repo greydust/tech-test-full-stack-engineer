@@ -2,7 +2,7 @@ module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: "./tsconfig.eslint.json",
+    project: './server/tsconfig.eslint.json',
   },
   plugins: [
     '@typescript-eslint',
@@ -13,4 +13,14 @@ module.exports = {
   extends: [
     'airbnb-typescript',
   ],
+  rules: {
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['./server/test/**/*-test.ts'] },
+    ],
+    'no-underscore-dangle': [
+      'error',
+      { allow: ['__get__'] },
+    ],
+  },
 };

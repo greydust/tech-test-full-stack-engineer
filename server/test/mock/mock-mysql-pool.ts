@@ -1,7 +1,9 @@
 import { EventEmitter } from 'events';
-import { Pool, RowDataPacket, FieldPacket, QueryOptions, PoolConnection} from 'mysql2/promise.js';
+import {
+  Pool, RowDataPacket, FieldPacket, QueryOptions, PoolConnection,
+} from 'mysql2/promise';
 
-export class MockMysqlPool extends EventEmitter implements Pool {
+class MockMysqlPool extends EventEmitter implements Pool {
   #queryStrings: Array<string> = [];
 
   getQueryStrings(): Array<string> {
@@ -12,14 +14,20 @@ export class MockMysqlPool extends EventEmitter implements Pool {
     this.#queryStrings = [];
   }
 
-  async query(queryString: string | QueryOptions, values?: any): Promise<[RowDataPacket[], FieldPacket[]]> {
+  async query(
+    queryString: string | QueryOptions,
+    _values?: any,
+  ): Promise<[RowDataPacket[], FieldPacket[]]> {
     if (typeof queryString === 'string') {
       this.#queryStrings.push(queryString);
     }
     return [[], []];
   }
 
-  async execute(queryString: string | QueryOptions, values?: any): Promise<[RowDataPacket[], FieldPacket[]]> {
+  async execute(
+    queryString: string | QueryOptions,
+    _values?: any,
+  ): Promise<[RowDataPacket[], FieldPacket[]]> {
     if (typeof queryString === 'string') {
       this.#queryStrings.push(queryString);
     }
@@ -30,10 +38,12 @@ export class MockMysqlPool extends EventEmitter implements Pool {
     return null;
   }
 
-  on(event: string, listener: (connection: PoolConnection) => any): this {
+  on(_event: string, _listener: (connection: PoolConnection) => any): this {
     return this;
   }
 
   async end(): Promise<void> {
   }
 }
+
+export default MockMysqlPool;

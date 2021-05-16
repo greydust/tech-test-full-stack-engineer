@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { DatabaseJob } from '../../../../src/library/database/database-job'
-import { MockMysqlPool } from '../../../mock/mock-mysql-pool';
+import DatabaseJob from '../../../../src/library/database/database-job';
+import MockMysqlPool from '../../../mock/mock-mysql-pool';
 
 describe('ImplementationMysql tests', () => {
   const mockSqlPool = new MockMysqlPool();
@@ -19,7 +19,7 @@ describe('ImplementationMysql tests', () => {
     databaseJob.acceptJob('123456');
     const queryStrings: Array<string> = mockSqlPool.getQueryStrings();
     expect(queryStrings.length).to.equal(1);
-    expect(queryStrings[0]).to.equal("UPDATE jobs SET status = 'accepted' WHERE id = 123456 AND status = 'new'");
+    expect(queryStrings[0]).to.match(/UPDATE jobs SET status = 'accepted', update_at = '\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d' WHERE id = 123456 AND status = 'new'/);
   });
 
   it('test declineJob()', () => {
@@ -27,6 +27,6 @@ describe('ImplementationMysql tests', () => {
     databaseJob.declineJob('123456');
     const queryStrings: Array<string> = mockSqlPool.getQueryStrings();
     expect(queryStrings.length).to.equal(1);
-    expect(queryStrings[0]).to.equal("UPDATE jobs SET status = 'declined' WHERE id = 123456 AND status = 'new'");
+    expect(queryStrings[0]).to.match(/UPDATE jobs SET status = 'declined', update_at = '\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d' WHERE id = 123456 AND status = 'new'/);
   });
 });

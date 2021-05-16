@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import { Common } from '../../../library/common';
+import Common from '../../../library/common';
 
 const router = express.Router();
 
@@ -34,10 +34,10 @@ async function postToJobId(request, response) {
     success,
     operation,
     id,
-  })
+  });
 }
 
-router.get('/', getJobsByStatus)
+router.get('/', getJobsByStatus);
 router.post('/:id', postToJobId);
 
-export { router };
+export default router;
