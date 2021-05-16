@@ -1,21 +1,11 @@
 import * as _ from 'lodash';
-import {
-  Avatar,
-  Button,
-  Card, CardActionArea, CardActions, CardContent, Typography,
-  Chip,
-  Divider,
-} from '@material-ui/core';
-import RoomIcon from '@material-ui/icons/Room';
-import WorkIcon from '@material-ui/icons/Work';
-import PhoneIcon from '@material-ui/icons/Phone';
-import EmailIcon from '@material-ui/icons/Email';
-import moment from 'moment';
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 
 import './App.css';
+import AcceptedCard from './component/job/accepted-card';
+import InvitedCard from './component/job/invited-card';
 
 export class App extends Component {
   state = {
@@ -80,7 +70,7 @@ export class App extends Component {
           headers: {
             'content-type': 'application/json'
           },
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          method: 'POST',
         }
       )
         .then((result) => result.json())
@@ -103,37 +93,12 @@ export class App extends Component {
             <Tab>Invited</Tab>
             <Tab>Accepted</Tab>
           </TabList>
-
           <TabPanel>
             {
               invited.map((job) => {
-                const { id, contact_name, price, description, created_at, suburbs_name, postcode, categories_name } = job;
+                const { id } = job;
                 return (
-                  <Card key={id}>
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">{contact_name}</Typography>
-                      <Typography>{moment(created_at).format('YYYY MMM D @ h:mm a')}</Typography>
-                      <Divider />
-                      <div>
-                        <Chip avatar={<Avatar><RoomIcon /></Avatar>} label={`${suburbs_name} ${postcode}`} />
-                        <Chip avatar={<Avatar><WorkIcon /></Avatar>} label={categories_name} />
-                        <Chip label={`Job ID: ${id}`} />
-                      </div>
-                      <Divider />
-                      <Typography variant="body2" color="textSecondary" component="p">
-                        {description}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button onClick={() => this.acceptJob(id)} size="small" color="primary">
-                        Accept
-                      </Button>
-                      <Button onClick={() => this.declineJob(id)} size="small" color="primary">
-                        Decline
-                      </Button>
-                      <Typography>${price} Lead Invitation</Typography>
-                    </CardActions>
-                  </Card>
+                  <InvitedCard key={id} job={job} acceptJob={this.acceptJob.bind(this)} declineJob={this.declineJob.bind(this)} />
                 );
               })
             }
@@ -141,32 +106,9 @@ export class App extends Component {
           <TabPanel>
             {
               accepted.map((job) => {
-                const { 
-                  id, contact_name, contact_phone, contact_email, 
-                  price, description, updated_at, suburbs_name, postcode, categories_name, 
-                } = job;
+                const { id } = job;
                 return (
-                  <Card key={id}>
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">{contact_name}</Typography>
-                      <Typography>{moment(updated_at).format('YYYY MMM D @ h:mm a')}</Typography>
-                      <Divider />
-                      <div>
-                        <Chip avatar={<Avatar><RoomIcon /></Avatar>} label={`${suburbs_name} ${postcode}`} />
-                        <Chip avatar={<Avatar><WorkIcon /></Avatar>} label={categories_name} />
-                        <Chip label={`Job ID: ${id}`} />
-                        <Chip label={`$${price} Lead Invitation`} />
-                      </div>
-                      <Divider />
-                      <div>
-                        <Chip avatar={<Avatar><PhoneIcon /></Avatar>} label={contact_phone} />                        
-                        <Chip avatar={<Avatar><EmailIcon /></Avatar>} label={contact_email} />                        
-                      </div>
-                      <Typography variant="body2" color="textSecondary" component="p">
-                        {description}
-                      </Typography>
-                    </CardContent>
-                  </Card>
+                  <AcceptedCard key={id} job={job} />
                 );
               })
             }
